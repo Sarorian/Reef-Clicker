@@ -14,12 +14,17 @@ import { SignupPage } from "./pages/SignupPage";
 import { LoginPage } from "./pages/LoginPage";
 import { Game } from "./pages/Game";
 import { NavigationBar } from "./components/NavigationBar";
+import { RegionsPage } from "./pages/RegionsPage";
+import { RegionDetailPage } from "./pages/RegionDetailPage";
+import common from "./helpers/common";
+import { BubbleShop } from "./pages/BubbleShop";
 
 function App() {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
   const [user, setUser] = useState(storedUser);
   const [token, setToken] = useState(storedToken);
+  const [regions, setRegions] = useState([]);
 
   const onLoggedIn = ({ user, token }) => {
     setUser(user);
@@ -29,10 +34,17 @@ function App() {
   };
 
   useEffect(() => {
-    // Perform any necessary side effects based on user/token state changes
-    // Example: Fetch additional data or perform actions upon login/logout
     if (user && token) {
       console.log("User logged in:", user.Username);
+      fetch("http://localhost:8080/regions", {})
+        .then((res) => res.json())
+        .then((data) => {
+          setRegions(data);
+        })
+        .catch((error) => {
+          common.displayMessage("error", error.message || "Error");
+          console.error(error);
+        });
     }
   }, [user, token]);
 
@@ -65,6 +77,21 @@ function App() {
             path="/login"
             element={<LoginPage onLoggedIn={onLoggedIn} />}
           />
+          <Route
+            path="/regions"
+            element={<RegionsPage regionsData={regions} />}
+          />
+          {regions.map((region) => (
+            <Route
+              key={region.Name}
+              path={`/regions/${region.Name}`}
+              element={<RegionDetailPage region={region} />}
+            />
+          ))}
+          <Route
+            path="/bubbleshop"
+            element={<BubbleShop regions={regions} />}
+          ></Route>
         </Routes>
       </Router>
 

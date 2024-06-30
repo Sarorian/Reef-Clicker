@@ -24,3 +24,41 @@ code {
 .custom-navbar .navbar-toggler {
   margin-right: 0;
 }
+
+.silhouette {
+  filter: contrast(0%) brightness(10%);
+}
+
+.ticker-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.ticker-content {
+  display: flex;
+  align-items: center;
+  animation: ticker 3s linear infinite;
+}
+
+.ticker-image {
+  width: 100px;
+  height: auto;
+  margin: 0 10px;
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.ticker-stopped .ticker-content {
+  animation-play-state: paused;
+}
+
+

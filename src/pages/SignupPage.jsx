@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
+import common from "../helpers/common";
 
 export const SignupPage = () => {
   const [username, setUsername] = useState("");
@@ -25,10 +26,13 @@ export const SignupPage = () => {
       },
     }).then((res) => {
       if (res.ok) {
-        alert("Signup successful. Please login on the next screen.");
+        common.displayMessage(
+          "success",
+          "Signup successful. Please login on the next screen."
+        );
         navigate("/login");
       } else {
-        alert("Signup failed");
+        common.displayMessage("error", "Signup Failed");
       }
     });
   };

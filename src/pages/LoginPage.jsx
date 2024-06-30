@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
+import common from "../helpers/common";
 
 export const LoginPage = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -31,11 +32,11 @@ export const LoginPage = ({ onLoggedIn }) => {
           onLoggedIn({ user: data.user, token: data.token });
           navigate("/");
         } else {
-          alert("No such user");
+          common.displayMessage("error", "No such user");
         }
       })
       .catch((e) => {
-        alert("Something went wrong");
+        common.displayMessage("error", e.message || "Error");
       });
   };
 
