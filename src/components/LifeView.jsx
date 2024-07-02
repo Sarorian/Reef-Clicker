@@ -13,10 +13,12 @@ export const LifeView = ({ life }) => {
         <img
           src={`/images/${lifeName}.png`}
           alt=""
+          data-rarity={life.Rarity}
           style={{
             maxWidth: "150px",
             maxHeight: "150px",
           }}
+          className="image-with-glow"
         />
       </p>
     </div>

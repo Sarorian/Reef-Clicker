@@ -1,14 +1,24 @@
 import { toast } from "react-toastify";
 
 const dropChances = {
-  Common: 50,
+  Common: 40,
   Uncommon: 25,
-  Rare: 15,
-  "Ultra Rare": 6,
-  Legendary: 3,
-  Mythic: 0.9,
-  Exotic: 0.1,
+  Rare: 15.5,
+  "Ultra Rare": 10,
+  Legendary: 5,
+  Mythic: 3,
+  Exotic: 1.5,
 };
+
+// const dropChances = {
+//   Common: 0,
+//   Uncommon: 0,
+//   Rare: 0,
+//   "Ultra Rare": 50,
+//   Legendary: 50,
+//   Mythic: 0,
+//   Exotic: 0,
+// };
 
 const common = {
   displayMessage: (level, errorMsg) => {

@@ -6,60 +6,51 @@ export const BubbleModal = ({ show, onHide, region, finalLife }) => {
   const [isFlashing, setIsFlashing] = useState(true);
   const tickerRef = useRef();
 
-  useEffect(() => {
-    if (show) {
-      setIsFlashing(true); // Reset flashing state when modal is shown
+  // Uncomment and adjust if you want to re-enable flashing effect
+  // useEffect(() => {
+  //   if (show) {
+  //     setIsFlashing(true); // Reset flashing state when modal is shown
 
-      const flashingInterval = setInterval(() => {
-        const randomLife =
-          region.Lifes[Math.floor(Math.random() * region.Lifes.length)];
-        setDisplayedLife(randomLife);
-      }, 100);
+  //     const flashingInterval = setInterval(() => {
+  //       const randomLife =
+  //         region.Lifes[Math.floor(Math.random() * region.Lifes.length)];
+  //       setDisplayedLife(randomLife);
+  //     }, 100);
 
-      setTimeout(() => {
-        clearInterval(flashingInterval);
-        setDisplayedLife(finalLife);
-        setIsFlashing(false);
-        if (tickerRef.current) {
-          tickerRef.current.classList.add("ticker-stopped");
-        }
-      }, 3000); // Flashing duration (3 seconds)
+  //     setTimeout(() => {
+  //       clearInterval(flashingInterval);
+  //       setDisplayedLife(finalLife);
+  //       setIsFlashing(false);
+  //       if (tickerRef.current) {
+  //         tickerRef.current.classList.add("ticker-stopped");
+  //       }
+  //     }, 3000); // Flashing duration (3 seconds)
 
-      return () => clearInterval(flashingInterval);
-    }
-  }, [show, region, finalLife]);
+  //     return () => clearInterval(flashingInterval);
+  //   }
+  // }, [show, region, finalLife]);
 
   return (
     <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Discovering Life</Modal.Title>
+        <Modal.Title>New Life!</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {region.Lifes && (
-          <div className="ticker-container" ref={tickerRef}>
-            <div className="ticker-content">
-              {region.Lifes.map((life, index) => (
-                <img
-                  key={index}
-                  src={`/images/${life.Name.toLowerCase().replace(
-                    /\s+/g,
-                    ""
-                  )}.png`}
-                  alt={life.Name}
-                  className={`ticker-image ${isFlashing ? "silhouette" : ""}`}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-        {!isFlashing && displayedLife && (
-          <div>
-            <h3>{displayedLife.Name}</h3>
-            <p>{displayedLife.Description}</p>
-            <p>Size: {displayedLife.Size} in.</p>
-            <p>Value: {displayedLife.Value} Pearls</p>
-          </div>
-        )}
+        <div>
+          <img
+            src={`/images/${finalLife.Name.toLowerCase().replace(
+              /\s+/g,
+              ""
+            )}.png`}
+            alt={finalLife.Name}
+            data-rarity={finalLife.Rarity}
+            style={{
+              maxWidth: "150px",
+              maxHeight: "150px",
+            }}
+            className="image-with-glow"
+          />
+        </div>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>
